@@ -286,12 +286,41 @@
     #hero { padding-top: 98px; }
 
     @media (max-width: 800px) {
-      #hero .container { flex-direction: column; align-items: center; text-align: center; }
-      .hero-text h1 { font-size: 2.2rem; }
-      .hero-badge-grid { display: none; }
-      .hero-photo { width: 150px; height: 150px; }
+      html { font-size: 15px; }
+
+      /* Announce bar — smaller text, allow wrap */
+      .announce-bar { font-size: .78rem; padding: 7px 12px; }
+      nav { top: 44px; }
+      #hero { padding-top: 104px; }
+
+      /* Nav — shrink links */
+      nav ul { gap: 14px; }
+      nav ul a { font-size: .78rem; }
+
+      /* Hero — stack vertically */
+      #hero .container { flex-direction: column; align-items: center; text-align: center; gap: 24px; }
+      .hero-text h1 { font-size: 2rem; }
+      .hero-text .subtitle { font-size: 1rem; }
+      .hero-badge-grid { display: flex; flex-shrink: 1; width: 100%; min-width: unset; }
+      .badge-pill { white-space: normal; }
+      .hero-photo { width: 160px; height: 200px; }
+
+      /* Education — allow date to wrap */
       .edu-card { flex-direction: column; }
+      .edu-date { white-space: normal !important; }
+
+      /* Research */
       .research-header { flex-direction: column; }
+
+      /* Figure gallery — 1 column on mobile */
+      .fig-gallery { grid-template-columns: 1fr; }
+
+      /* Project grid */
+      .proj-grid { grid-template-columns: 1fr; }
+
+      /* Container padding */
+      .container { padding: 0 16px; }
+      section { padding: 40px 0; }
     }
   </style>
 </head>
