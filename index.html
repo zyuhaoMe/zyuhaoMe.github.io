@@ -24,7 +24,7 @@
 
     /* ── Reset / Base ───────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 18px; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
@@ -36,8 +36,8 @@
     img { max-width: 100%; display: block; }
 
     /* ── Layout helpers ─────────────────────────────────────────── */
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-    section { padding: 80px 0; }
+    .container { max-width: 1320px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 60px 0; }
     section:nth-child(even) { background: var(--bg2); }
 
     /* ── Nav ────────────────────────────────────────────────────── */
@@ -65,7 +65,8 @@
       background: linear-gradient(135deg, #00274c 0%, #1d6fa4 55%, #e8f4fb 100%);
       padding-top: 60px;
     }
-    #hero .container { display: flex; align-items: center; gap: 60px; }
+    #hero .container { display: flex; align-items: center; gap: 40px; }
+    .hero-text { flex: 1; min-width: 0; }
     .hero-text h1 { font-size: 3rem; font-weight: 800; line-height: 1.15; color: #fff; }
     .hero-text h1 span { color: #ffcb05; }
     .hero-text .subtitle {
@@ -88,22 +89,24 @@
       flex-shrink: 0;
     }
     .hero-photo {
-      width: 200px; height: 200px;
-      border-radius: 50%;
+      width: 260px; height: 320px;
+      border-radius: 12px;
       object-fit: cover; object-position: center top;
       border: 4px solid #ffcb05;
       box-shadow: 0 0 0 8px rgba(255,203,5,.25), 0 8px 32px rgba(0,0,0,.25);
     }
     .hero-badge-grid {
-      display: flex; flex-direction: column; gap: 12px; min-width: 220px;
+      display: flex; flex-direction: column; gap: 12px;
+      flex-shrink: 0; width: max-content;
     }
     .badge-pill {
       background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25);
       border-left: 3px solid #ffcb05;
       padding: 10px 16px; border-radius: var(--radius);
-      font-size: .82rem; color: rgba(255,255,255,.75);
+      font-size: .75rem; color: rgba(255,255,255,.75);
+      white-space: nowrap;
     }
-    .badge-pill strong { color: #fff; display: block; font-size: .88rem; }
+    .badge-pill strong { color: #fff; display: block; font-size: .85rem; }
 
     /* ── Section headings ───────────────────────────────────────── */
     .section-title {
@@ -157,7 +160,7 @@
 
     /* Figure gallery */
     .fig-gallery {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 12px; margin-top: 20px;
     }
     .fig-item {
@@ -252,6 +255,36 @@
     footer .contact-links a:hover { background: rgba(255,255,255,.1); text-decoration: none; border-color: #ffcb05; }
     footer .copyright { margin-top: 36px; color: rgba(255,255,255,.35); font-size: .78rem; }
 
+    /* ── Announcement bar ───────────────────────────────────────── */
+    .announce-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1100;
+      background: linear-gradient(90deg, #d4930a, #e8a812, #d4930a);
+      background-size: 200% 100%;
+      animation: shimmer 3s linear infinite;
+      color: #00274c;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: .88rem; font-weight: 700;
+      letter-spacing: .3px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .announce-bar .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #00274c; opacity: .7;
+      animation: pulse 1.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: .7; }
+      50%       { transform: scale(1.4); opacity: 1; }
+    }
+    nav  { top: 38px; }
+    #hero { padding-top: 98px; }
+
     @media (max-width: 800px) {
       #hero .container { flex-direction: column; align-items: center; text-align: center; }
       .hero-text h1 { font-size: 2.2rem; }
@@ -264,6 +297,13 @@
 </head>
 <body>
 
+<!-- ── Announcement Bar ────────────────────────────────────────── -->
+<div class="announce-bar">
+  <span class="dot"></span>
+  🎯 Actively seeking internship opportunities — Fall 2026 · Spring 2027 · Summer 2027
+  <span class="dot"></span>
+</div>
+
 <!-- ── Navigation ─────────────────────────────────────────────── -->
 <nav>
   <div class="container">
@@ -272,9 +312,8 @@
       <li><a href="#about">About</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#research">Research</a></li>
-      <li><a href="#publications">Publications</a></li>
       <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
+      <li><a href="#publications">Publications</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -285,7 +324,7 @@
   <div id="hero">
     <div class="container">
       <div class="hero-photo-wrap">
-        <img src="assets/figures/profile.jpg" alt="Yuhao Zhou" class="hero-photo" />
+        <img src="assets/figures/profile.png" alt="Yuhao Zhou" class="hero-photo" />
       </div>
       <div class="hero-text">
         <h1>Yuhao <span>Zhou</span></h1>
@@ -306,20 +345,30 @@
       </div>
       <div class="hero-badge-grid">
         <div class="badge-pill">
-          <strong>CFD &amp; Aeroacoustics</strong>
-          LES · Cadence CharLES · DoD HPC
+          <a href="#jet-project" style="color:#ffcb05; text-decoration:none; transition: text-decoration .2s;"
+             onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+            <strong>Fluid / Thermal Simulation ↗</strong></a>
+          CharLES · ANSYS-Fluent · Comsol · Pointwise
         </div>
         <div class="badge-pill">
-          <strong>HPC &amp; Parallel Computing</strong>
-          MPI · OpenMP · CUDA · Slurm
+          <strong>Parallel &amp; HPC</strong>
+          CUDA C · MPI · OpenMP · OpenACC · PETSc · HDF5 · LAPACK · Valgrind
         </div>
         <div class="badge-pill">
-          <strong>Machine Learning</strong>
-          PyTorch · TensorFlow · LSTM · CNN
+          <a href="#lstm-project" style="color:#ffcb05; text-decoration:none;"
+             onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+            <strong>Machine Learning ↗</strong></a>
+          PyTorch · TensorFlow · OpenCV
         </div>
         <div class="badge-pill">
-          <strong>Scientific Computing</strong>
-          C++ · Python · PETSc · GSL
+          <a href="#capstone-project" style="color:#ffcb05; text-decoration:none;"
+             onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+            <strong>Robotics &amp; CAD ↗</strong></a>
+          ROS · Arduino · Simulink · SolidWorks · Inventor · AutoCAD · Abaqus · Adams
+        </div>
+        <div class="badge-pill">
+          <strong>Programming</strong>
+          C++ · C · Python · MATLAB · Julia · Bash · APDL · G-code · XML
         </div>
       </div>
     </div>
@@ -333,59 +382,54 @@
     <p class="section-sub">Dual graduate degrees in Mechanical Engineering and Computer Science at University of Michigan.</p>
     <div class="edu-grid">
 
-      <div class="edu-card">
-        <div>
-          <div class="edu-school">University of Michigan, Ann Arbor</div>
-          <div class="edu-degree">Ph.D. Candidate — Mechanical Engineering</div>
-          <div class="edu-degree" style="margin-top:4px;">Research: Closed-loop noise control of supersonic jets</div>
-        </div>
-        <div style="text-align:right;">
-          <div class="edu-date">08/2024 – 05/2028 (Expected)</div>
-        </div>
-      </div>
-
-      <div class="edu-card">
-        <div>
-          <div class="edu-school">University of Michigan, Ann Arbor</div>
-          <div class="edu-degree">M.S.E. — Computer Science &amp; Engineering &nbsp;<span class="edu-gpa">GPA: 3.8 / 4.0</span></div>
-          <div class="edu-courses">Applied GPU Programming (A) · Machine Learning (A) · Computer Vision (A+) · Parallel Computing (A) · Advanced Compiler · Computational Complexity</div>
-        </div>
-        <div style="text-align:right;">
-          <div class="edu-date">01/2023 – 05/2024</div>
-        </div>
-      </div>
-
-      <div class="edu-card">
-        <div>
-          <div class="edu-school">University of Michigan, Ann Arbor</div>
-          <div class="edu-degree">M.S.E. — Mechanical Engineering &nbsp;<span class="edu-gpa">GPA: 3.8 / 4.0</span></div>
-          <div class="edu-courses">CFD I &amp; II (A) · Laser Material Processing (A+) · Advanced Fluid Mechanics I &amp; II · Intro Numerical Methods · Material Defects &amp; Atomistic Modeling</div>
-        </div>
-        <div style="text-align:right;">
-          <div class="edu-date">08/2021 – 05/2024</div>
+      <div class="edu-card" style="flex-direction:column; gap:12px;">
+        <div class="edu-school">University of Michigan, Ann Arbor</div>
+        <div style="display:flex; flex-direction:column; gap:10px; padding-left:12px; border-left:3px solid var(--gold); width:100%;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px;">
+              <div class="edu-degree" style="color:var(--text); font-weight:600;">Ph.D. Candidate — Mechanical Engineering</div>
+              <div class="edu-date" style="white-space:nowrap; flex-shrink:0;">08/2024 – 05/2028 (Expected)</div>
+            </div>
+            <div class="edu-degree">Research: Closed-loop noise control of supersonic jets</div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px;">
+              <div class="edu-degree" style="color:var(--text); font-weight:600;">M.S.E. — Computer Science &amp; Engineering &nbsp;<span class="edu-gpa">GPA: 3.8 / 4.0</span></div>
+              <div class="edu-date" style="white-space:nowrap; flex-shrink:0;">01/2023 – 05/2024</div>
+            </div>
+            <div class="edu-courses">Applied GPU Programming (A) · Machine Learning (A) · Computer Vision (A+) · Parallel Computing (A) · Advanced Compiler · Computational Complexity</div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px;">
+              <div class="edu-degree" style="color:var(--text); font-weight:600;">M.S.E. — Mechanical Engineering &nbsp;<span class="edu-gpa">GPA: 3.8 / 4.0</span></div>
+              <div class="edu-date" style="white-space:nowrap; flex-shrink:0;">08/2021 – 05/2024</div>
+            </div>
+            <div class="edu-courses">CFD I &amp; II (A) · Laser Material Processing (A+) · Advanced Fluid Mechanics I &amp; II · Intro Numerical Methods · Material Defects &amp; Atomistic Modeling</div>
+          </div>
         </div>
       </div>
 
-      <div class="edu-card">
-        <div>
-          <div class="edu-school">Dalian University of Technology</div>
-          <div class="edu-degree">B.E. — Mechanical Design, Manufacturing &amp; Automation &nbsp;<span class="edu-gpa">GPA: 88 / 100</span></div>
+      <div class="edu-card" style="flex-direction:column; gap:12px;">
+        <div class="edu-school">Dalian University of Technology</div>
+        <div style="padding-left:12px; border-left:3px solid var(--gold); width:100%;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px;">
+            <div class="edu-degree" style="color:var(--text); font-weight:600;">B.E. — Mechanical Design, Manufacturing &amp; Automation &nbsp;<span class="edu-gpa">GPA: 88 / 100</span></div>
+            <div class="edu-date" style="white-space:nowrap; flex-shrink:0;">09/2016 – 06/2020</div>
+          </div>
           <div class="edu-courses">Advanced Mathematics (A) · Differential Equations (95) · Engineering Materials (100) · Robotics</div>
           <div class="edu-courses" style="color:var(--gold);">Award: Annual Academic Performance 2018</div>
         </div>
-        <div style="text-align:right;">
-          <div class="edu-date">09/2016 – 06/2020</div>
-        </div>
       </div>
 
-      <div class="edu-card">
-        <div>
-          <div class="edu-school">University of California, Berkeley (Exchange)</div>
-          <div class="edu-degree">Modeling &amp; Simulation · Applied Data Science · Advanced IEOR</div>
+      <div class="edu-card" style="flex-direction:column; gap:12px;">
+        <div class="edu-school">University of California, Berkeley (Exchange)</div>
+        <div style="padding-left:12px; border-left:3px solid var(--gold); width:100%;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px;">
+            <div class="edu-degree" style="color:var(--text); font-weight:600;">Exchange Student — College of Engineering</div>
+            <div class="edu-date" style="white-space:nowrap; flex-shrink:0;">01/2019 – 05/2019</div>
+          </div>
+          <div class="edu-courses">Modeling &amp; Simulation · Applied Data Science · Advanced IEOR</div>
           <div class="edu-courses" style="color:var(--gold);">Award: Robotics &amp; Autonomous Systems Competition — Top 15%</div>
-        </div>
-        <div style="text-align:right;">
-          <div class="edu-date">01/2019 – 05/2019</div>
         </div>
       </div>
 
@@ -411,7 +455,7 @@
 
       <div class="project-card">
         <div class="project-card-body">
-          <div class="project-card-title">Resolvent-based Optimal Closed-loop Control of Supersonic Jet Noise</div>
+          <div class="project-card-title" id="jet-project">Resolvent-based Optimal Closed-loop Control of Supersonic Jet Noise</div>
           <div class="project-links">
             <a href="https://docs.google.com/presentation/d/11kskjpIvC714MON6KUgc2qa1LjtuluI_/edit?usp=sharing" class="proj-link" target="_blank">📊 Slides (AIAA 2026)</a>
             <a href="https://drive.google.com/file/d/1NSlhDq98S-AWUEVgvrdOfdk6PFxlZRPr/view?usp=sharing" class="proj-link" target="_blank">📄 Paper</a>
@@ -514,37 +558,21 @@
             <li>Bridged computationally expensive C++ SOV with Python optimization via <strong>pybind11</strong>.</li>
           </ul>
         </div>
+        <div class="fig-gallery" style="padding: 0 24px 24px;">
+          <div class="fig-item" onclick="openLightbox('assets/figures/rotor_1.png')">
+            <img src="assets/figures/rotor_1.png" alt="High-pressure compressor simulator" />
+            <div class="fig-caption">Fig. 1 — High-pressure compressor simulator of the aero-engine rotor (6-part assembly).</div>
+          </div>
+          <div class="fig-item" onclick="openLightbox('assets/figures/rotor_2.png')">
+            <img src="assets/figures/rotor_2.png" alt="Two-stage rotor optimized assembly" />
+            <div class="fig-caption">Fig. 6 — Schematic diagram of two-stage rotor optimized assembly; eccentricity and datum axis.</div>
+          </div>
+          <div class="fig-item" onclick="openLightbox('assets/figures/rotor_3.png')">
+            <img src="assets/figures/rotor_3.png" alt="Schematic diagram of curved rotor" />
+            <div class="fig-caption">Fig. 7 — Schematic diagram of curved rotor — multi-stage stacking relative to datum axis.</div>
+          </div>
+        </div>
       </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── Publications ────────────────────────────────────────────── -->
-<section id="publications">
-  <div class="container">
-    <h2 class="section-title">Publications</h2>
-    <p class="section-sub">Peer-reviewed conference papers in computational aeroacoustics and flow control.</p>
-
-    <div class="pub-card">
-      <div class="pub-title">"Toward Resolvent-Based Estimation and Control of Wavepackets in Supersonic Turbulent Jets"</div>
-      <div class="pub-authors">
-        <strong>Zhou, Y.</strong>, Towne, A., Jung, J., Bhagwat, R., Martini, E., Jordan, P., Audiffred, D. B., et al.
-      </div>
-      <div class="pub-venue">AIAA SciTech Forum — AIAA Paper 2026-1873, January 2026</div>
-      <div style="margin-top:10px;">
-        <a href="https://drive.google.com/file/d/1NSlhDq98S-AWUEVgvrdOfdk6PFxlZRPr/view?usp=sharing" class="proj-link" target="_blank">📄 PDF</a>
-        &nbsp;
-        <a href="https://docs.google.com/presentation/d/11kskjpIvC714MON6KUgc2qa1LjtuluI_/edit?usp=sharing" class="proj-link" target="_blank">📊 Slides</a>
-      </div>
-    </div>
-
-    <div class="pub-card">
-      <div class="pub-title">"Resolvent-Based Estimation of Wavepackets in Turbulent Jets"</div>
-      <div class="pub-authors">
-        Towne, A., Bhagwat, R., <strong>Zhou, Y.</strong>, Jung, J., Martini, E., Jordan, P., Audiffred, D. B., et al.
-      </div>
-      <div class="pub-venue">30th AIAA/CEAS Aeroacoustics Conference — AIAA Paper 2024-3413, 2024</div>
     </div>
 
   </div>
@@ -560,7 +588,7 @@
     <div class="research-block">
       <div class="research-header">
         <div>
-          <div class="research-title">Stock Price Forecasting using LSTM</div>
+          <div class="research-title" id="lstm-project">Stock Price Forecasting using LSTM</div>
         </div>
         <div class="research-date">09/2021 – 01/2022</div>
       </div>
@@ -632,11 +660,40 @@
       </div>
     </div>
 
-    <!-- Project 3: Spider Robot -->
+    <!-- Project 3: Parallel Graph Coarsening -->
     <div class="research-block">
       <div class="research-header">
         <div>
-          <div class="research-title">Capstone: Mechanism Design and Motion Simulation of Spider Bionic Robot</div>
+          <div class="research-title">Parallel Multi-level Graph Coarsening (ParMETIS)</div>
+        </div>
+        <div class="research-date">01/2026 – 05/2026</div>
+      </div>
+      <div class="project-card">
+        <div class="project-card-body">
+          <div class="project-links">
+            <a href="https://github.com/zyuhaoMe/587_graph_coarsen" class="proj-link" target="_blank">💻 GitHub</a>
+            <span class="tag">C++</span>
+            <span class="tag">MPI</span>
+            <span class="tag gold">HPC</span>
+            <span class="tag">Graph Algorithms</span>
+            <span class="tag">Parallel Computing</span>
+          </div>
+          <ul class="bullets">
+            <li>Re-implemented <strong>parallel graph coloring and multi-level graph coarsening</strong> following the ParMETIS algorithm in C++ with MPI distributed-memory interface.</li>
+            <li>Implemented <strong>Luby's iterative algorithm</strong> for parallel graph coloring; designed boundary/internal vertex data structures for efficient MPI_Alltoallv communication setup.</li>
+            <li>Achieved <strong>communication–computing concurrency</strong> via non-blocking <strong>MPI_Ialltoallv</strong>: boundary vertex values are exchanged while internal vertex coloring proceeds simultaneously.</li>
+            <li>Implemented <strong>Heavy Edge Matching (HEM)</strong> per independent color set for iterative vertex merging and edge collapsing to build coarsened graph hierarchy.</li>
+            <li>Demonstrated <strong>decent weak scaling</strong> (8 processes, m/n up to 1600) and <strong>strong scaling</strong> speedup from 4 → 32 processes; identified communication latency bottlenecks for future optimization.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 4: Spider Robot -->
+    <div class="research-block">
+      <div class="research-header">
+        <div>
+          <div class="research-title" id="capstone-project">Capstone: Mechanism Design and Motion Simulation of Spider Bionic Robot</div>
           <div class="research-role">Supervisor: Prof. Zhixiang Xu, Dalian University of Technology</div>
         </div>
         <div class="research-date">06/2020</div>
@@ -644,6 +701,7 @@
       <div class="project-card">
         <div class="project-card-body">
           <div class="project-links">
+            <a href="https://drive.google.com/file/d/1H8TBs7QqwkpM6jLvlMw6M44goRSrFgUB/view?usp=sharing" class="proj-link" target="_blank">📄 Thesis</a>
             <span class="tag">ROS</span>
             <span class="tag">Gazebo</span>
             <span class="tag">SolidWorks</span>
@@ -655,6 +713,20 @@
             <li>Employed the redundant mechanism to simulate the leg of jumping spiders.</li>
             <li>Implemented a <strong>dynamic simulation</strong> of the spider robot by integrating ROS and Gazebo.</li>
           </ul>
+        </div>
+        <div class="fig-gallery" style="padding: 0 24px 24px;">
+          <div class="fig-item" onclick="openLightbox('assets/figures/capstone_2.png')">
+            <img src="assets/figures/capstone_2.png" alt="Spider robot capstone design 1" />
+            <div class="fig-caption">Bionic spider robot — mechanical design in SolidWorks.</div>
+          </div>
+          <div class="fig-item" onclick="openLightbox('assets/figures/capstone_1.png')">
+            <img src="assets/figures/capstone_1.png" alt="Spider robot capstone design 2" />
+            <div class="fig-caption">Kinematics analysis — forward/inverse kinematics via screw theory.</div>
+          </div>
+          <div class="fig-item" onclick="openLightbox('assets/figures/capstone_3.png')">
+            <img src="assets/figures/capstone_3.png" alt="Spider robot capstone design 3" />
+            <div class="fig-caption">Dynamic simulation — ROS &amp; Gazebo integration.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -686,93 +758,34 @@
   </div>
 </section>
 
-<!-- ── Skills ─────────────────────────────────────────────────── -->
-<section id="skills">
+
+<!-- ── Publications ────────────────────────────────────────────── -->
+<section id="publications">
   <div class="container">
-    <h2 class="section-title">Skills</h2>
-    <p class="section-sub">A broad technical stack spanning HPC, ML, CFD, and scientific software engineering.</p>
-    <div class="skills-grid">
+    <h2 class="section-title">Publications</h2>
+    <p class="section-sub">Peer-reviewed conference papers in computational aeroacoustics and flow control.</p>
 
-      <div class="skill-group">
-        <div class="skill-group-title">Scientific Computing &amp; HPC</div>
-        <div class="skill-tags">
-          <span class="skill-tag">MPI</span>
-          <span class="skill-tag">OpenMP</span>
-          <span class="skill-tag">OpenACC</span>
-          <span class="skill-tag">CUDA C</span>
-          <span class="skill-tag">PETSc</span>
-          <span class="skill-tag">HDF5</span>
-          <span class="skill-tag">LAPACK</span>
-          <span class="skill-tag">GNU GSL</span>
-          <span class="skill-tag">Valgrind</span>
-        </div>
+    <div class="pub-card">
+      <div class="pub-title">"Toward Resolvent-Based Estimation and Control of Wavepackets in Supersonic Turbulent Jets"</div>
+      <div class="pub-authors">
+        <strong>Zhou, Y.</strong>, Towne, A., Jung, J., Bhagwat, R., Martini, E., Jordan, P., Audiffred, D. B., et al.
       </div>
-
-      <div class="skill-group">
-        <div class="skill-group-title">CFD &amp; Simulation Software</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Cadence CharLES</span>
-          <span class="skill-tag">ANSYS-Fluent</span>
-          <span class="skill-tag">Pointwise</span>
-          <span class="skill-tag">Abaqus</span>
-          <span class="skill-tag">LAMMPS</span>
-          <span class="skill-tag">HyperWorks</span>
-          <span class="skill-tag">Tecplot</span>
-          <span class="skill-tag">MATLAB/Simulink</span>
-        </div>
+      <div class="pub-venue">AIAA SciTech Forum — AIAA Paper 2026-1873, January 2026</div>
+      <div style="margin-top:10px;">
+        <a href="https://drive.google.com/file/d/1NSlhDq98S-AWUEVgvrdOfdk6PFxlZRPr/view?usp=sharing" class="proj-link" target="_blank">📄 PDF</a>
+        &nbsp;
+        <a href="https://docs.google.com/presentation/d/11kskjpIvC714MON6KUgc2qa1LjtuluI_/edit?usp=sharing" class="proj-link" target="_blank">📊 Slides</a>
       </div>
-
-      <div class="skill-group">
-        <div class="skill-group-title">Programming Languages</div>
-        <div class="skill-tags">
-          <span class="skill-tag">C++</span>
-          <span class="skill-tag">C</span>
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">MATLAB</span>
-          <span class="skill-tag">Julia</span>
-          <span class="skill-tag">Bash</span>
-          <span class="skill-tag">APDL</span>
-          <span class="skill-tag">G-code</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-title">Data Science &amp; ML</div>
-        <div class="skill-tags">
-          <span class="skill-tag">PyTorch</span>
-          <span class="skill-tag">TensorFlow</span>
-          <span class="skill-tag">NumPy</span>
-          <span class="skill-tag">Pandas</span>
-          <span class="skill-tag">OpenCV</span>
-          <span class="skill-tag">Matplotlib</span>
-          <span class="skill-tag">Seaborn</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-title">Systems &amp; Platforms</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Linux (Red Hat / Ubuntu / Arch)</span>
-          <span class="skill-tag">HPC Clusters (Slurm / PBS)</span>
-          <span class="skill-tag">macOS</span>
-          <span class="skill-tag">Docker</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-title">Robotics &amp; CAD</div>
-        <div class="skill-tags">
-          <span class="skill-tag">ROS</span>
-          <span class="skill-tag">Gazebo</span>
-          <span class="skill-tag">FreeRTOS</span>
-          <span class="skill-tag">Arduino</span>
-          <span class="skill-tag">SolidWorks</span>
-          <span class="skill-tag">Autodesk Inventor</span>
-          <span class="skill-tag">Siemens NX</span>
-        </div>
-      </div>
-
     </div>
+
+    <div class="pub-card">
+      <div class="pub-title">"Resolvent-Based Estimation of Wavepackets in Turbulent Jets"</div>
+      <div class="pub-authors">
+        Towne, A., Bhagwat, R., <strong>Zhou, Y.</strong>, Jung, J., Martini, E., Jordan, P., Audiffred, D. B., et al.
+      </div>
+      <div class="pub-venue">30th AIAA/CEAS Aeroacoustics Conference — AIAA Paper 2024-3413, 2024</div>
+    </div>
+
   </div>
 </section>
 
